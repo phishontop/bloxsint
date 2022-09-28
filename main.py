@@ -74,5 +74,5 @@ def osint(robloxId):
     for i in threads:
         i.join()
     
-
-osint(3271677212)
+choice = input("Enter Roblox Id -> ")
+osint(choice)
