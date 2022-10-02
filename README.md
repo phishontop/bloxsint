@@ -16,6 +16,7 @@ python main.py
 - Games played
 - RoPro information
 - multithreaded
+- cmd UI
 
 ### Todo
 - Previous users
