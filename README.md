@@ -1,24 +1,10 @@
 # Bloxsint  
-First ever roblox osint tool used to find information on a roblox user
-
-### usage
-```
-git clone https://github.com/phishontop/bloxsint
-cd bloxsint/
-pip install httpx
-pip install colorama
-python main.py
-```
+First ever roblox osint/csint tool used to find information on a roblox user
 
 ### Features
-- Bloxflip information
-- RBXFlip information
+- Bloxflip Information
+- RBXFlip Information
 - Games played
-- RoPro information
-- multithreaded
-- cmd UI
-
-### Todo
-- Previous users
-- Socials linked
-- Info finder (group wall conv)
+- Friends Names
+- Personal Information scraper
+- Group Wall Scraper
