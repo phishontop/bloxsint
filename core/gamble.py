@@ -14,9 +14,11 @@ class GambleScraper:
         for currency, game_id in links.items():
             response = requests.get(f"https://api.rbxflip.com/wagers/users/{self.user_id}/history?page=0&gameKind={game_id}")
             total_profit = response.json()["metadata"]["totalProfit"]
-            profits[currency] = total_profit
+            if total_profit != 0:
+                profits[currency] = total_profit
 
-        self.stats["rbxflip"] = profits
+        if profits:
+            self.stats["rbxflip"] = profits
 
     def bloxflip(self) -> None:
         response = requests.get(f"https://api.bloxflip.com/user/lookup/{self.user_id}", headers=self.headers)

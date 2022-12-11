@@ -4,6 +4,12 @@ import requests
 class Post:
 
     def __init__(self, data: dict) -> None:
+        """Represents a group wall post
+
+        Params:
+            data: post information
+        """
+
         self.user_id = data["poster"]["user"]["userId"]
         self.username = data["poster"]["user"]["username"]
         self.message = data["body"]
@@ -13,11 +19,23 @@ class Post:
 class Group:
 
     def __init__(self, data: dict) -> None:
+        """Represents a group
+
+        Params:
+            data: group information
+        """
+
         self.id = data["id"]
         self.name = data["name"]
         self.member_count = data["memberCount"]
 
     def get_posts(self) -> list:
+        """Gathers the first 100 group wall posts of the group
+
+        Returns:
+            list: Post objects, can't be more than 100 objects
+        """
+
         response = requests.get(f"https://groups.roblox.com/v2/groups/{self.id}/wall/posts?sortOrder=Desc&limit=100")
         response_json = response.json()
         posts = []
@@ -35,6 +53,12 @@ class GroupScraper:
         self.user_id = user_id
 
     def get_groups(self) -> list:
+        """Checks to see if the users role in the groups is the owner
+
+        Returns:
+            list:  group objects owned by the user
+        """
+
         response = requests.get(f"https://groups.roblox.com/v2/users/{self.user_id}/groups/roles")
         groups = []
         for user_group in response.json()["data"]:

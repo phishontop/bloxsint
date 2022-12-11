@@ -1,10 +1,12 @@
 import requests
 import threading
+from datetime import datetime
 
 
 class Game:
 
     def __init__(self, data: dict) -> None:
+        self.badge_id = data["id"]
         self.id = data["awardingUniverse"]["id"]
         self.name = data["awardingUniverse"]["name"]
 
@@ -15,6 +17,7 @@ class GameScraper:
         self.user_id = user_id
         self.badge_ids = []
         self.games = []
+        self.session = requests.Session()
 
     def fetch_badge_ids(self) -> None:
         cursor = ""
@@ -29,9 +32,9 @@ class GameScraper:
 
             cursor = response_json["nextPageCursor"]
 
-    def get_game(self, badge_id: int, requests_session) -> None:
+    def get_game(self, badge_id: int) -> None:
         try:
-            with requests_session as session:
+            with self.session as session:
                 response = session.get(f"https://badges.roblox.com/v1/badges/{badge_id}")
 
             game = Game(response.json())
@@ -41,11 +44,13 @@ class GameScraper:
         except requests.exceptions.ConnectionError:
             pass
 
+        except KeyError:
+            pass
+
     def fetch_games(self) -> None:
         threads = []
-        session = requests.Session()
         for badge_id in self.badge_ids:
-            threads.append(threading.Thread(target=self.get_game, args=(badge_id, session,)))
+            threads.append(threading.Thread(target=self.get_game, args=(badge_id,)))
 
         for thread in threads:
             thread.start()
