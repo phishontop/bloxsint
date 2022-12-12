@@ -1,38 +1,21 @@
-from core import *
+from core.lookup import Lookup
+from argparse import ArgumentParser
 
 
-class Lookup:
+parser = ArgumentParser()
 
-    def __init__(self) -> None:
-        self.roblox_id = int(input("Enter Roblox ID -> "))
-        self.stats = {}
+parser.add_argument("-t", "--target-id", help="Target roblox id to lookup", metavar="<id>")
+parser.add_argument("-f", "--file", help="Stores information gathered in the file", metavar="<file>")
+parser.add_argument("-s", "--style", help="Changes the information style and format", metavar="<style>")
+parser.add_argument("-gl", "--game-limit", help="Sets the limit to how many games are stored or displayed", metavar="<int>")
 
-    def run(self):
-        functions = {
-            "friends": FriendScraper(user_id=self.roblox_id).parse_friends,
-            "gambling_info": GambleScraper(user_id=self.roblox_id).run,
-            "personal_info": [
-                GroupScraper(user_id=self.roblox_id).parse_posts,
-                ProfileScraper(user_id=self.roblox_id).scrape_bio
-            ],
-            "games_played": GameScraper(user_id=self.roblox_id).run
-        }
+args = parser.parse_args()
+target_id = args.target_id
 
-        for key, func in functions.items():
-            self.stats[key] = Lookup.run_func(func)
+if not args.game_limit:
+    args.game_limit = 10
 
-    @staticmethod
-    def run_func(func):
-        results = {}
-        if isinstance(func, list):
-            for i in func:
-                results = {**i(), **results}
-        else:
-            results = func()
-
-        return results
-
-
-bloxsint = Lookup()
-bloxsint.run()
-print(bloxsint.stats)
+if target_id:
+    bloxsint = Lookup(roblox_id=int(target_id), args=args)
+    bloxsint.run()
+    print(bloxsint.stats)

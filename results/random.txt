@@ -1,0 +1,1 @@
+{"friends": ["eunice", "Rose", "kaitlyn"], "gambling_info": {}, "personal_info": {"discord": "Any#0193", "age": "14"}, "games_played": ["Shopping Wars", "\ud83e\udd94 SONIC PRIME | Funky Friday", "[\u2728SOON\u2728] Murder Mystery E", "[\ud83c\udfc6NEW SEASON + ADVENT\ud83c\udfc6] Mining Simulator 2", "[6 NEW CARS] Car Crushers 2"]}

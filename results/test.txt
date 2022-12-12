@@ -1,0 +1,1 @@
+{"friends": [], "gambling_info": {"bloxflip": {"rank": "Elite", "wager": 16094.23, "gamesPlayed": 4, "rainWinnings": 0.9689922480620154, "triviaWinnings": 0.0}}, "personal_info": {}, "games_played": []}
