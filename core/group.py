@@ -1,4 +1,5 @@
 import requests
+from .account import Account
 
 
 class Post:
@@ -9,7 +10,6 @@ class Post:
         Params:
             data: post information
         """
-
         self.user_id = data["poster"]["user"]["userId"]
         self.username = data["poster"]["user"]["username"]
         self.message = data["body"]
@@ -24,7 +24,6 @@ class Group:
         Params:
             data: group information
         """
-
         self.id = data["id"]
         self.name = data["name"]
         self.member_count = data["memberCount"]
@@ -35,7 +34,6 @@ class Group:
         Returns:
             list: Post objects, can't be more than 100 objects
         """
-
         response = requests.get(f"https://groups.roblox.com/v2/groups/{self.id}/wall/posts?sortOrder=Desc&limit=100")
         response_json = response.json()
         posts = []
@@ -49,8 +47,14 @@ class Group:
 
 class GroupScraper:
 
-    def __init__(self, user_id: int) -> None:
-        self.user_id = user_id
+    def __init__(self, **kwargs) -> None:
+        self.user_id = kwargs["user_id"]
+        self.parsed_information = {}
+        self.account = None
+
+        cookie = kwargs.get("cookie")
+        if cookie:
+            self.account = Account(cookie)
 
     def get_groups(self) -> list:
         """Checks to see if the users role in the groups is the owner
@@ -63,7 +67,15 @@ class GroupScraper:
         groups = []
         for user_group in response.json()["data"]:
             if user_group["role"]["rank"] == 255:
-                groups.append(Group(user_group["group"]))
+                group = Group(user_group["group"])
+                groups.append(group)
+
+                if self.account:
+                    discord = self.account.get_group_discord(group)
+                    self.parsed_information = {
+                        **discord,
+                        **self.parsed_information
+                    }
 
         return groups
 
@@ -101,7 +113,6 @@ class GroupScraper:
         return posts
 
     def parse_posts(self):
-        parsed_information = {}
         posts = self.get_posts()
         for ranking, post in enumerate(posts):
             if post.user_id == self.user_id:
@@ -110,6 +121,9 @@ class GroupScraper:
                         posts[ranking+1]
                     )
 
-                    parsed_information = {**response, **parsed_information}
+                    self.parsed_information = {
+                        **response,
+                        **self.parsed_information
+                    }
 
-        return parsed_information
+        return self.parsed_information

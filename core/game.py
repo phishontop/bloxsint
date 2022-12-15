@@ -1,6 +1,5 @@
 import requests
 import threading
-from datetime import datetime
 
 
 class Game:
@@ -27,10 +26,14 @@ class GameScraper:
             )
 
             response_json = response.json()
-            for badge in response_json["data"]:
-                self.badge_ids.append(badge["id"])
+            try:
+                for badge in response_json["data"]:
+                    self.badge_ids.append(badge["id"])
 
-            cursor = response_json["nextPageCursor"]
+                cursor = response_json["nextPageCursor"]
+
+            except KeyError:
+                break
 
     def get_game(self, badge_id: int) -> None:
         try:

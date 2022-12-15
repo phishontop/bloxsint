@@ -8,6 +8,7 @@ parser.add_argument("-t", "--target-id", help="Target roblox id to lookup", meta
 parser.add_argument("-f", "--file", help="Stores information gathered in the file", metavar="<file>")
 parser.add_argument("-s", "--style", help="Changes the information style and format", metavar="<style>")
 parser.add_argument("-gl", "--game-limit", help="Sets the limit to how many games are stored or displayed", metavar="<int>")
+parser.add_argument("-c", "--cookie", help="authenticates as a user to access other API endpoints", metavar="<cookie>")
 
 args = parser.parse_args()
 target_id = args.target_id

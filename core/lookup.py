@@ -21,7 +21,7 @@ class Lookup:
             "friends": FriendScraper(user_id=self.roblox_id).parse_friends,
             "gambling_info": GambleScraper(user_id=self.roblox_id).run,
             "personal_info": [
-                GroupScraper(user_id=self.roblox_id).parse_posts,
+                GroupScraper(user_id=self.roblox_id, cookie=self.args.cookie).parse_posts,
                 ProfileScraper(user_id=self.roblox_id).scrape_bio
             ],
             "games_played": GameScraper(user_id=self.roblox_id).run
@@ -43,10 +43,10 @@ class Lookup:
             self.stats["games_played"] = games_played[0:game_limit]
 
     def dump_stats(self):
-        """Dumps the stats to the file if the is one"""
+        """Dumps the stats to the file if the arg is set"""
         if self.args.file:
-            with open(f"results/{self.args.file}", 'w') as file:
-                file.write(json.dumps(self.stats))
+            with open(rf"results/{self.args.file}", 'w') as file:
+                file.write(json.dumps(self.stats, indent=4))
 
     @staticmethod
     def run_func(func):

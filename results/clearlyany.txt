@@ -1,0 +1,24 @@
+{
+    "friends": [
+        "eunice",
+        "Rose",
+        "kaitlyn"
+    ],
+    "gambling_info": {},
+    "personal_info": {
+        "discord": "Any#0193",
+        "age": "14"
+    },
+    "games_played": [
+        "\ud83d\udd11 Eviction Notice",
+        "Wacky Wizards",
+        "[\ud83c\udf40MEGA LUCK\ud83c\udf40] Bubble Gum Simulator",
+        "[\ud83c\udfc6NEW SEASON + ADVENT\ud83c\udfc6] Mining Simulator 2",
+        "Walmart Land",
+        "\ud83e\udd94 SONIC PRIME | Funky Friday",
+        "Cart Ride Delivery Service",
+        "DOORS \ud83d\udc41\ufe0f",
+        "[EVENT] RB Battles! \ud83c\udfc6 ",
+        "Realistic Car Driving\u2122"
+    ]
+}
