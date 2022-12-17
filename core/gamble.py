@@ -21,15 +21,19 @@ class GambleScraper:
             self.stats["rbxflip"] = profits
 
     def bloxflip(self) -> None:
-        response = requests.get(f"https://api.bloxflip.com/user/lookup/{self.user_id}", headers=self.headers)
-        response_json = response.json()
-        if not response_json["success"]:
-            return
+        try:
+            response = requests.get(f"https://api.bloxflip.com/user/lookup/{self.user_id}", headers=self.headers)
+            response_json = response.json()
+            if not response_json["success"]:
+                return
 
-        for word in ["username", "success"]:
-            response_json.pop(word)
+            for word in ["username", "success"]:
+                response_json.pop(word)
 
-        self.stats["bloxflip"] = response_json
+            self.stats["bloxflip"] = response_json
+
+        except:
+            pass
 
     def run(self):
         self.rbxflip()
