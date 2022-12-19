@@ -1,4 +1,4 @@
-# Bloxsint V2.1
+# Bloxsint V2.3
 - One of the first overpowered roblox OSINT tools
 - Requires just the username or ID of the target
 
