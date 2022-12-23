@@ -12,8 +12,9 @@ class Game:
 
 class GameScraper:
 
-    def __init__(self, user_id: int) -> None:
+    def __init__(self, user_id: int, game_limit: int) -> None:
         self.user_id = user_id
+        self.game_limit = game_limit
         self.badge_ids = []
         self.games = []
         self.session = requests.Session()
@@ -33,6 +34,9 @@ class GameScraper:
                 cursor = response_json["nextPageCursor"]
 
             except KeyError:
+                break
+
+            if len(self.badge_ids) > self.game_limit:
                 break
 
     def get_game(self, badge_id: int) -> None:

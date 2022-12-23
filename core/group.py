@@ -60,7 +60,7 @@ class GroupScraper:
         """Checks to see if the users role in the groups is the owner
 
         Returns:
-            list:  group objects owned by the user
+            list: group objects owned by the user
         """
 
         response = requests.get(f"https://groups.roblox.com/v2/users/{self.user_id}/groups/roles")
@@ -117,9 +117,8 @@ class GroupScraper:
         for ranking, post in enumerate(posts):
             if post.user_id == self.user_id:
                 if GroupScraper.close_convo(post):
-                    response = GroupScraper.parse_opening(
-                        posts[ranking+1]
-                    )
+
+                    response = GroupScraper.parse_opening(posts[ranking+1])
 
                     self.parsed_information = {
                         **response,

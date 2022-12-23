@@ -24,7 +24,7 @@ class Lookup:
                 GroupScraper(user_id=self.roblox_id, cookie=self.args.cookie).parse_posts,
                 ProfileScraper(user_id=self.roblox_id).scrape_bio
             ],
-            "games_played": GameScraper(user_id=self.roblox_id).run
+            "games_played": GameScraper(user_id=self.roblox_id, game_limit=self.args.game_limit).run
         }
 
         for key, func in functions.items():
