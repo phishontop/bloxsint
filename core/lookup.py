@@ -3,6 +3,7 @@ from .gamble import GambleScraper
 from .game import GameScraper
 from .group import GroupScraper
 from .profile import ProfileScraper
+from .website import WebsiteScraper
 
 import time
 import json
@@ -24,7 +25,8 @@ class Lookup:
                 GroupScraper(user_id=self.roblox_id, cookie=self.args.cookie).parse_posts,
                 ProfileScraper(user_id=self.roblox_id).scrape_bio
             ],
-            "games_played": GameScraper(user_id=self.roblox_id, game_limit=self.args.game_limit).run
+            "games_played": GameScraper(user_id=self.roblox_id, game_limit=self.args.game_limit).run,
+            "websites": WebsiteScraper(user_id=self.roblox_id).run
         }
 
         for key, func in functions.items():
