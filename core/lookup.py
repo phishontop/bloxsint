@@ -4,6 +4,8 @@ from .game import GameScraper
 from .group import GroupScraper
 from .profile import ProfileScraper
 from .website import WebsiteScraper
+from .utilities.database import Database
+from .names import PreviousNameScraper
 
 import time
 import json
@@ -14,10 +16,29 @@ class Lookup:
     def __init__(self, roblox_id: int, args) -> None:
         self.roblox_id = roblox_id
         self.args = args
-        self.stats = {}
+        self.database = None
+        self.stats = {"roblox_id": roblox_id}
 
     def run(self):
         start = time.time()
+
+        if self.args.database:
+            self.database = Database(self.args.database)
+            result = self.database.query({"roblox_id": self.roblox_id})
+
+            if result:
+                self.stats = result[0]
+
+            else:
+                self.new_lookup()
+                self.database.insert(data=self.stats)
+
+        else:
+            self.new_lookup()
+
+        print(f"Lookup completed in {round(time.time() - start, 2)}s")
+
+    def new_lookup(self):
         functions = {
             "friends": FriendScraper(user_id=self.roblox_id).parse_friends,
             "gambling_info": GambleScraper(user_id=self.roblox_id).run,
@@ -26,7 +47,8 @@ class Lookup:
                 ProfileScraper(user_id=self.roblox_id).scrape_bio
             ],
             "games_played": GameScraper(user_id=self.roblox_id, game_limit=self.args.game_limit).run,
-            "websites": WebsiteScraper(user_id=self.roblox_id).run
+            "websites": WebsiteScraper(user_id=self.roblox_id).run,
+            "previous_names": PreviousNameScraper(user_id=self.roblox_id).get_names
         }
 
         for key, func in functions.items():
@@ -34,7 +56,6 @@ class Lookup:
 
         self.set_game_cap()
         self.dump_stats()
-        print(f"Lookup completed in {round(time.time() - start, 2)}s")
 
     def set_game_cap(self):
         """Sets the games played to the limit of the game-limit argument (default: 10)"""

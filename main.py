@@ -9,6 +9,7 @@ parser.add_argument("-f", "--file", help="Stores information gathered in the fil
 parser.add_argument("-s", "--style", help="Changes the information style and format", metavar="<style>")
 parser.add_argument("-gl", "--game-limit", help="Sets the limit to how many games are stored or displayed", metavar="<int>")
 parser.add_argument("-c", "--cookie", help="authenticates as a user to access other API endpoints", metavar="<cookie>")
+parser.add_argument("-d", "--database", help="Mongodb Key for your atlas database", metavar="<link>")
 
 args = parser.parse_args()
 target_id = args.target_id
