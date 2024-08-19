@@ -1,8 +1,5 @@
 from core.lookup import Lookup
-from argparse import ArgumentParser
-
-
-parser = ArgumentParser()
+from argparse import ArgumentParser as parser
 
 parser.add_argument("-t", "--target-id", help="Target roblox id to lookup", metavar="<id>")
 parser.add_argument("-f", "--file", help="Stores information gathered in the file", metavar="<file>")
