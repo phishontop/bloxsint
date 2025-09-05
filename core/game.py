@@ -14,7 +14,7 @@ class GameScraper:
 
     def __init__(self, user_id: int, game_limit: int) -> None:
         self.user_id = user_id
-        self.game_limit = game_limit
+        self.game_limit = int(game_limit)
         self.badge_ids = []
         self.games = []
         self.session = requests.Session()

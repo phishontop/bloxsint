@@ -108,9 +108,13 @@ class WebsiteScraper:
 
             else:
                 url = options["url"].format(options["arg"])
-                response = requests.get(url)
-                if options["not_found"] not in response.text:
-                    self.stats[options["base_url"]] = response.json()[options["data_key"]]
+                try:
+                    response = requests.get(url)
+                    if options["not_found"] not in response.text:
+                        self.stats[options["base_url"]] = response.json()[options["data_key"]]
+
+                except:
+                    pass
 
     def run(self):
         self.scrape_info()

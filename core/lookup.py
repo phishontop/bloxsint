@@ -41,13 +41,13 @@ class Lookup:
     def new_lookup(self):
         functions = {
             "friends": FriendScraper(user_id=self.roblox_id).parse_friends,
-            "gambling_info": GambleScraper(user_id=self.roblox_id).run,
+            # "gambling_info": GambleScraper(user_id=self.roblox_id).run,
             "personal_info": [
                 GroupScraper(user_id=self.roblox_id, cookie=self.args.cookie).parse_posts,
                 ProfileScraper(user_id=self.roblox_id).scrape_bio
             ],
             "games_played": GameScraper(user_id=self.roblox_id, game_limit=self.args.game_limit).run,
-            "websites": WebsiteScraper(user_id=self.roblox_id).run,
+            # "websites": WebsiteScraper(user_id=self.roblox_id).run,
             "previous_names": PreviousNameScraper(user_id=self.roblox_id).get_names
         }
 
